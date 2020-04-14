@@ -41,5 +41,25 @@ router.get("/:id", (req, res) => {
         })
 })
 
+// `POST` request to /api/posts
+// Use 'return' to cancel the request
+router.post("/", (req, res) => {
+    if (!req.body.title || !req.body.contents) {
+        return res.status(400).json({
+            errorMessage: "Please provide title and contents for the post.",
+        })
+    }
+    db.insert(req.body)
+        .then((post) => {
+            res.status(201).json(post);
+        })
+        .catch((error) => {
+            console.log(error);
+            return res.status(500).json({
+                error: "There was an error while saving the post to the database",
+            })
+        })
+})
+
 // After the route has been fully configured, we export it so it can be required where needed
 module.exports = router;
