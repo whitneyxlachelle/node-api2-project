@@ -75,7 +75,6 @@ router.post("/", (req, res) => {
 // post object. You may need to make additional calls to the database 
 // in order to satisfy this requirement.
 
-
 router.delete("/:id", (req, res) => {
     db.findById(req.params.id)
         .then((post) => {
